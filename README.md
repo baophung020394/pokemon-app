@@ -4,6 +4,10 @@
 
 ### `npm install`
 
+```bash
+   cp npm install
+```
+
 ### `copy env.example to .env`
 
 ```bash
@@ -12,4 +16,6 @@
 
 ## Run app
 
-### `npm start`
+```bash
+   cp npm start
+```
