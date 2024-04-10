@@ -1,35 +1,16 @@
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Card, CardMedia, IconButton, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import axiosClient from "../apis/api";
 
 const SelectedPokemonItem = ({
+  pokemon,
   pokemonId,
   onRemove,
 }: {
   pokemonId: number | 1;
   onRemove: (pokemonId: number) => void;
+  pokemon: any;
 }) => {
-  const [pokemon, setPokemon] = useState<{
-    id: number;
-    name: string;
-    imageUrl: string;
-  } | null>(null);
-
-  useEffect(() => {
-    const fetchPokemon = async () => {
-      const response = await axiosClient.get(`pokemon/${pokemonId}`);
-      setPokemon({
-        id: pokemonId,
-        name: response.data.name,
-        imageUrl: response.data.sprites.front_default,
-      });
-    };
-
-    fetchPokemon();
-  }, [pokemonId]);
-
-  if (!pokemon) return null;
+  if (pokemon === undefined) return null;
 
   return (
     <Box
@@ -45,7 +26,7 @@ const SelectedPokemonItem = ({
       }}
     >
       <IconButton
-        onClick={() => onRemove(pokemonId)}
+        onClick={() => onRemove(pokemon?.id)}
         size="small"
         sx={{ position: "absolute", right: 10, top: 5, color: "error.main" }}
       >
@@ -64,8 +45,8 @@ const SelectedPokemonItem = ({
       >
         <CardMedia
           component="img"
-          image={pokemon.imageUrl}
-          alt={pokemon.name}
+          image={pokemon.sprites?.front_default}
+          alt={pokemon?.sprites?.front_default}
           sx={{ width: "auto", maxHeight: "100%" }}
         />
       </Card>
